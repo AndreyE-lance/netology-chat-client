@@ -43,11 +43,19 @@ public class ChatClient {
             public void actionPerformed(ActionEvent e) {
                 if (!textField1.getText().trim().isEmpty()) {
                     userName = textField1.getText();
-                    textField1.setVisible(false);
-                    regBtn.setVisible(false);
                     client = new Client(textArea1, userName);
                     client.start();
-                    if(!client.isAlive()) JOptionPane.showMessageDialog(frame, "Неверное имя.");
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException interruptedException) {
+                        interruptedException.printStackTrace();
+                    }
+                    if (!client.isNameOk()) {
+                        JOptionPane.showMessageDialog(frame, "Неверное имя.");
+                    } else {
+                        textField1.setVisible(false);
+                        regBtn.setVisible(false);
+                    }
                 } else JOptionPane.showMessageDialog(frame, "Не введен никнейм для чата.");
             }
         });

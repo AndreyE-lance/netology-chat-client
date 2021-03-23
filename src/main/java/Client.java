@@ -8,6 +8,8 @@ import java.nio.charset.StandardCharsets;
 public class Client extends Thread {
     private JTextArea textArea;
     private String userName;
+    private boolean isNameOk = true;
+
 
     private InetSocketAddress socketAddress = new InetSocketAddress("192.168.0.108", 53535);
     private SocketChannel socketChannel;
@@ -53,6 +55,7 @@ public class Client extends Thread {
                 }
 
                 if (answer.equals("*WRONG_NAME*")) {
+                    isNameOk = false;
                     sleep(1000);
                     break;
                 }
@@ -63,5 +66,9 @@ public class Client extends Thread {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isNameOk() {
+        return isNameOk;
     }
 }
