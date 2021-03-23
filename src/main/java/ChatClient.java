@@ -47,6 +47,7 @@ public class ChatClient {
                     regBtn.setVisible(false);
                     client = new Client(textArea1, userName);
                     client.start();
+                    if(!client.isAlive()) JOptionPane.showMessageDialog(frame, "Неверное имя.");
                 } else JOptionPane.showMessageDialog(frame, "Не введен никнейм для чата.");
             }
         });

@@ -51,6 +51,11 @@ public class Client extends Thread {
                     sleep(1000);
                     break;
                 }
+
+                if (answer.equals("*WRONG_NAME*")) {
+                    sleep(1000);
+                    break;
+                }
                 textArea.append(answer);
                 inputBuffer.clear();
             }
