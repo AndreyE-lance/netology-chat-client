@@ -32,7 +32,7 @@ public class Client extends Thread {
 
 
             while (true) {
-                if (msg.equals("end")) break;
+                if (msg.equals("end")) break;//
                 int bytesCount = socketChannel.read(inputBuffer);
                 textArea.append(new String(inputBuffer.array(), 0, bytesCount, StandardCharsets.UTF_8));
                 textArea.append("\n");
