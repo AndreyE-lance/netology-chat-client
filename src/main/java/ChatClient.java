@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class ChatClient {
     public JPanel panelMain;
@@ -9,7 +10,16 @@ public class ChatClient {
     private JButton regBtn;
     private JTextField textField1;
     private JTextArea textArea1;
-    private Client client = new Client(textArea1);
+    private Client client;
+
+    {
+        try {
+            client = new Client(textArea1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private String userName;
 
 
@@ -17,7 +27,11 @@ public class ChatClient {
         sendMsgBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //textArea1.append(textArea2.getText()+"\n");
-                client.start();
+                try {
+                    client.setMsg(textArea2.getText()+"\n");
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
 
             }
         });
@@ -27,6 +41,7 @@ public class ChatClient {
                 userName = textField1.getText();
                 textField1.setVisible(false);
                 regBtn.setVisible(false);
+                client.start();
                 //JScrollPane scrollPane = new JScrollPane(textArea1);
 
             }
