@@ -1,8 +1,8 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class ChatClient {
@@ -18,7 +18,8 @@ public class ChatClient {
 
 
     private String userName;
-
+    final static String SETTINGS_PATH = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "settings.cfg";
+    static String[] cfg = null;
 
     public ChatClient() {
         sendMsgBtn.addActionListener(new ActionListener() {
@@ -98,6 +99,12 @@ public class ChatClient {
 
             }
         });
+        textField1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                textField1.setText("");
+            }
+        });
     }
 
     public static void main(String[] args) throws IOException {
@@ -106,8 +113,14 @@ public class ChatClient {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+
+        FileReader fileReader = new FileReader(new File(SETTINGS_PATH));
+        try (BufferedReader bReader = new BufferedReader(fileReader)) {
+            cfg = bReader.readLine().split(" ");
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
-    public static void close() {
-    }
+
 }

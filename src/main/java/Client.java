@@ -11,7 +11,7 @@ public class Client extends Thread {
     private boolean isNameOk = true;
 
 
-    private InetSocketAddress socketAddress = new InetSocketAddress("192.168.0.108", 53535);
+    private InetSocketAddress socketAddress = new InetSocketAddress(ChatClient.cfg[0], Integer.parseInt(ChatClient.cfg[1]));
     private SocketChannel socketChannel;
 
     {
@@ -22,7 +22,7 @@ public class Client extends Thread {
         }
     }
 
-    public boolean sendMsg(String msg)  {
+    public boolean sendMsg(String msg) {
         try {
             socketChannel.write(ByteBuffer.wrap(msg.getBytes(StandardCharsets.UTF_8)));
         } catch (IOException e) {
